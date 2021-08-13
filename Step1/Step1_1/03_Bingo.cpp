@@ -195,10 +195,9 @@ void ComSelect(int* userTable, int* comTable)
 	while (1) // 이전에 선택된 적이 없는 칸(배열의 Index)을 선택한다.
 	{
 		
-		nIndex = rand() & 25;
+		nIndex = rand() % 3000;
+		nIndex %= 25;
 		nSelect = comTable[nIndex];
-
-		cout << nSelect << endl;
 
 		if (nSelect != 0) // 숫자가 남은 칸을 찾았으면
 		{
@@ -287,4 +286,5 @@ int CheckBingo(int* table)
 /*
  <rand 함수의 한계> 
  : Sleep을 사용하게 되면(?) rand를 무수히 돌려도 절대 안나오는 숫자가 발생하여 플레이가 중간에 끊김
+ : 따라서 범위를 더 크게 만들고 다시 25로 나누는 절차를 진행
 */
