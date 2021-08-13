@@ -7,6 +7,7 @@ using namespace std;
 
 void InitTable(int* table);
 void ShowTable(int* table);
+void HideTable(int* table);
 void UserSelect(int* userTable, int* comTable);
 void ComSelect(int* userTalbe, int* comTable);
 int CheckBingo(int* table);
@@ -39,14 +40,33 @@ int main()
 		while (nUserBingo < 3 && nComBingo < 3)
 		{
 			system("cls");
-
-			// 테이블 확인
-			ShowTable(nUserTable);
-			ShowTable(nComTable);
+			//nUserBingo < 3 && nComTable < 3
 
 			// 빙고 확인
 			nUserBingo = CheckBingo(nUserTable);
 			nComBingo = CheckBingo(nComTable);
+
+			// 테이블 확인
+			HideTable(nComTable);
+			cout << "Computer Bingo : " << nComBingo << endl << endl;
+			ShowTable(nUserTable);
+			cout << "User Bingo : " << nUserBingo << endl;
+			
+			if (nUserBingo >= 3 && nComBingo >= 3) 
+			{
+				cout << "DRAW : DOUBLE THREE BINGO!" << endl;
+				break;
+			}
+			else if (nUserBingo >= 3) 
+			{
+				cout << "VICTORY : YOU WIN!" << endl;
+				break;
+			}
+			else if (nComBingo >= 3) 
+			{
+				cout << "DEFEAT : YOU LOSE!" << endl;
+				break;
+			}
 
 			// 번호 선택
 			if (isMyturn)
@@ -106,6 +126,23 @@ void ShowTable(int* table)
 	}
 }
 
+void HideTable(int* table)
+{
+	cout << "====================================" << endl;
+	for (int i = 0; i < 25; i++)
+	{
+		if (table[i] == 0)
+			cout << "| 0\t";
+		else
+			cout << "| ?\t";
+		if (i % 5 == 4) 
+		{
+			cout << endl;
+			cout << "====================================" << endl;
+		}
+	}
+}
+
 void UserSelect(int* userTable, int* comTable)
 {
 	int nSelect;
@@ -153,11 +190,15 @@ void ComSelect(int* userTable, int* comTable)
 	cout << ".";
 	Sleep(100);
 	cout << "." << endl;
+	
 
 	while (1) // 이전에 선택된 적이 없는 칸(배열의 Index)을 선택한다.
 	{
+		
 		nIndex = rand() & 25;
 		nSelect = comTable[nIndex];
+
+		cout << nSelect << endl;
 
 		if (nSelect != 0) // 숫자가 남은 칸을 찾았으면
 		{
@@ -166,14 +207,16 @@ void ComSelect(int* userTable, int* comTable)
 				if (nSelect == userTable[i])
 				{
 					userTable[i] = 0;
+					cout << "Computer Select : " << nSelect << endl;
+					Sleep(2000);
 					break;
 				}
 			}
 			comTable[nIndex] = 0; // 컴퓨터 테이블에서도 선택된 숫자를 처리한다.
+			
 			break;
 		}
-		cout << "Computer Select : " << nSelect << endl;
-		Sleep(2000);
+		
 	}
 }
 
@@ -229,3 +272,19 @@ int CheckBingo(int* table)
 
 	return nBingo;
 }
+
+
+/* 컴퓨터의 지능 플레이
+<우선순위 TABLE>
+[3] [0] [0] [0] [4]
+[0] [3] [0] [3] [1]
+[1] [1] [5] [1] [x]
+[0] [3] [0] [3] [1]
+[3] [0] [0] [0] [4]
+// 우선순위를 정해줌으로서 컴퓨터가 더 지능적으로 플레이 할 수 있음
+*/
+
+/*
+ <rand 함수의 한계> 
+ : Sleep을 사용하게 되면(?) rand를 무수히 돌려도 절대 안나오는 숫자가 발생하여 플레이가 중간에 끊김
+*/
