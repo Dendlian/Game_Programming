@@ -8,7 +8,7 @@ using namespace std;
 ex) 7~10 (카드 1장은 선택이 되고 경기 종료까지 오픈되지 않는다.)
 2. 기본 배팅 200
 3. 게임포기 : 100회수 / 스탑 : 승부 / 추가 배팅 : 더블-카드 추가 오픈
-=> 승부 : 숨겨진 카드가 우ㅟ에 오픈된 두 숫자 사이의 카드라면 승리
+=> 승부 : 숨겨진 카드가 위에 오픈된 두 숫자 사이의 카드라면 승리
 => 추가 배팅 : 오픈 되지 않은 카드 중에 한 장이 오픈된다.
 */
 
@@ -19,11 +19,13 @@ int main()
 	rand();
 	int M_total = 10000;
 	int card[12] = { 1,2,3,4,5,6,7,8,9,10,11,12 };
-	int C_bet = 0;
+
 	int U_select;
+	
 	int c_temp = 0;
 	int rn1;
 	int rn2;
+	
 	int game = 1;
 
 	while (1) { // n번째 게임
@@ -47,8 +49,8 @@ int main()
 			card[1] = c_temp;
 		}
 	
-		while (C_bet < 3) { // n번째 게임 내 n번째 배팅
-			cout << "Total Cash : " << M_bet << endl;
+		while (1) { // n번째 게임 내 n번째 배팅
+			cout << endl << "Total Cash : " << M_total << endl;
 			cout << "===============================================" << endl;
 			cout << "Betting Cash : " << M_bet << endl;
 			cout << "Open Card  : " << card[0] << " ~ " << card[1] << endl;
@@ -59,30 +61,32 @@ int main()
 			if (U_select == 3) {
 				M_bet /= 2;
 				M_total -= M_bet;
-				cout << "You give-up the game." << endl << "Answer Card : " << card[2] << endl;
+				cout << endl<< "You give-up the game." << endl << "Answer Card : " << card[2] << endl;
 				break;
 			}
 			else if (U_select == 1) {
 				if (card[0] < card[2] && card[2] < card[1]) {
 					M_total += M_bet;
-					cout << "You Win!" << endl << "Answer Card : " << card[2] << endl;
+					cout << endl << "You Win!" << endl << "Answer Card : " << card[2] << endl;
 					break;
 				}
 				else {
 				
 					M_total -= M_bet;
-					cout << "You Lose!" << endl << "Answer Card : " << card[2] << endl;
+					cout << endl << "You Lose!" << endl << "Answer Card : " << card[2] << endl;
 					break;
 				}
 			}
 			else if (U_select == 2) {
-				C_bet++;
-				M_bet * 2;
-				cout << "Plus Open Card : ";
-				for (int i = 0; i < C_bet; i++) {
-					cout << card[i + 3] << " ";
+				if (C_bet > 3) cout << "You can't add anymore!" << endl;
+				else {
+					C_bet++;
+					M_bet *= 2;
+					system("cls");
+					cout << "Plus Open Card : ";
+					for (int i = 0; i < C_bet; i++) cout << card[i + 3] << " ";
+					cout << endl;
 				}
-				cout << endl;
 			}
 		}
 		cout << "Continue? (1.YES  2.NO)";
