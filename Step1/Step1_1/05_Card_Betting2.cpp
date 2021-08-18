@@ -24,7 +24,7 @@ void Print(Card* cards);					// 전체 카드 출력
 void Print(tagCard* caeds, int index);		// 플레이 카드 출력
 
 void Play(Card* cards, int* money, int* Index, bool* playing);
-//int Betting(int Money);
+int Betting(int Money);
 
 int main() 
 {
@@ -64,6 +64,7 @@ int main()
 		{
 			// 플레이
 			Play(stCards, &nMymoney, &nCurrIndex, &isPlaying);
+			Sleep(2000);
 		}
 	}
 	system("pasue");
@@ -142,9 +143,33 @@ void Print(Card* cards, int index)
 }
 void Play(Card* cards, int* money, int* Index, bool* playing)
 {
+	int						nSelect;
+	E_SELECT eSelect;
+	int						nBet;
+	cout << "My Money : " << *money << endl;
+	cout << "1. HIGH  2. LOW  3.SEVEN (0. END GAME) : ";
+	cin >> nSelect;
+
+	eSelect = (E_SELECT)nSelect;
+
+	switch (eSelect)
+	{
+	case E_QUIT:
+		cout << "Finish The Game!" << endl;
+		*playing = false;
+		break;
+	case E_HIGH:
+		nBet = Betting(*money);
+		
+		break;
+	case E_LOW:
+		break;
+	case E_SEVEN:
+		break;
+	
+	}
+}
+int Betting(int Money)
+{
 
 }
-//int Betting(int Money)
-//{
-//
-//}
