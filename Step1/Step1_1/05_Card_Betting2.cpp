@@ -23,7 +23,7 @@ void Suffle(Card* cards);					// 카드 셔플
 void Print(Card* cards);					// 전체 카드 출력
 void Print(tagCard* caeds, int index);		// 플레이 카드 출력
 
-void Play(Card* cards, int* money, int* Index, bool* playing);
+void Play(Card* cards, int* money, int* index, bool* playing);
 int Betting(int Money);
 
 int main() 
@@ -40,7 +40,7 @@ int main()
 	Suffle(stCards);
 	Print(stCards);
 	
-	system("pause");
+	// system("pause");
 
 	while (isPlaying)
 	{
@@ -141,10 +141,10 @@ void Print(Card* cards, int index)
 		cout << cards[i].szShape << cards[i].nNumber << "\t";
 	cout << "\t ( ? )" << endl;
 }
-void Play(Card* cards, int* money, int* Index, bool* playing)
+void Play(Card* cards, int* money, int* index, bool* playing)
 {
 	int						nSelect;
-	E_SELECT eSelect;
+	E_SELECT				eSelect;
 	int						nBet;
 	cout << "My Money : " << *money << endl;
 	cout << "1. HIGH  2. LOW  3.SEVEN (0. END GAME) : ";
@@ -160,16 +160,56 @@ void Play(Card* cards, int* money, int* Index, bool* playing)
 		break;
 	case E_HIGH:
 		nBet = Betting(*money);
-		
+		if (cards[*index].nNumber > 7) // 승
+		{
+			cout << "Betting Success! : ";
+			*money += nBet;
+		}
+		else // 패
+		{
+			cout << "Betting Failure! : ";
+			*money -= nBet;
+		}
+		cout << cards[*index].szShape << cards[*index].nNumber << endl;
 		break;
 	case E_LOW:
+		nBet = Betting(*money);
+		if (cards[*index].nNumber < 7) // 승
+		{
+			cout << "Betting Success! : ";
+			*money += nBet;
+		}
+		else // 패
+		{
+			cout << "Betting Failure! : ";
+			*money -= nBet;
+		}
+		cout << cards[*index].szShape << cards[*index].nNumber << endl;
 		break;
 	case E_SEVEN:
+		nBet = Betting(*money);
+		if (cards[*index].nNumber == 7) // 승
+		{
+			cout << "Betting Success! : ";
+			*money += nBet*2;
+		}
+		else // 패
+		{
+			cout << "Betting Failure! : ";
+			*money -= nBet;
+		}
+		cout << cards[*index].szShape << cards[*index].nNumber << endl;
 		break;
-	
 	}
+	*index += 6;
 }
 int Betting(int Money)
 {
-
+	int nBet = 0;
+	while (nBet<100 || nBet>Money)
+	{
+		cout << "Bet the Cash. (100 ~ All-in) : ";
+		cin >> nBet;
+	}
+	return nBet;
 }
