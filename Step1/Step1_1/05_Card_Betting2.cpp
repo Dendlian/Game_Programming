@@ -14,7 +14,7 @@ enum E_SELECT {E_QUIT, E_HIGH, E_LOW, E_SEVEN};
 typedef struct tagCard
 {
 	char*	 szShape;
-	int		 nNumber;
+	int		 nNumber; 
 }Card;
 
 
