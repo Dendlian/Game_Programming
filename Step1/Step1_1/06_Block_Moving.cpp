@@ -23,7 +23,7 @@ int main()
 	bool isPlaying = true;
 	int x = 10, y = 10;
 
-	cout << "xÁÂÇ¥ : " << x << endl;
+	cout << "xÁÂÇ¥ : " << x << endl; 
 	cout << "yÁÂÇ¥ : " << y << endl;
 	Draw(hOP, x * 2, y, (char*)"A", BACKGROUND_RED);
 
