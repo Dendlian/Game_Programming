@@ -28,7 +28,7 @@ int main()
 	
 	int game = 1;
 
-	while (1) { // n번째 게임
+	while (1) { // n번째 게임 
 		
 		system("cls");
 		int M_bet = 200;
@@ -41,7 +41,7 @@ int main()
 			c_temp = card[rn1];
 			card[rn1] = card[rn2];
 			card[rn2] = c_temp;
-		}
+		} 
 
 		if (card[0] > card[1]) {
 			c_temp = card[0];
