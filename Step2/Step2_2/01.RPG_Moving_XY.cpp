@@ -15,7 +15,7 @@ enum E_FIGHTING {E_RUNAWAY, E_ATTACK, E_DEFENCE, E_MAGIC, E_F_MAX};
 
 // 몬스터의 종류
 enum E_MONTYPE {E_ORC, E_ELF, E_TROLL, E_HUMAN, E_MON_MAX=4};
-
+    
 int main()
 {
 	srand(time(NULL));
